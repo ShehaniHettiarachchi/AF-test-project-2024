@@ -1,12 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 
 const UserList = () => {
-    const {users, deleteUser } = useContext(UserContext);
+    const {users, deleteUser, searchUsers  } = useContext(UserContext);
+
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const handleSearch = () => {
+        searchUsers(searchQuery);
+    };
 
     return(
         <>
+            <input
+                type="text"
+                placeholder="Search by First Name or Last Name"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button onClick={handleSearch}>Search</button>
+
             <table>
                 <thead>
                     <tr>
@@ -20,31 +34,31 @@ const UserList = () => {
                     </tr>
                 </thead>
                 {users
-                    .map((user) => (
+                    .map((users) => (
                         <tbody>
                             <tr>
                                 <td>
-                                    {user.First_Name}
+                                    {users.First_Name}
                                 </td>
                                 <td>
-                                    {user.Last_Name}
+                                    {users.Last_Name}
                                 </td>
                                 <td>
-                                    {user.Address}
+                                    {users.Address}
                                 </td>
                                 <td>
-                                    {user.Email}
+                                    {users.Email}
                                 </td>
                                 <td>
-                                    {user.Contact_Number}
+                                    {users.Contact_Number}
                                 </td>
                                 <td>
-                                    <Link to={`/update/${user._id}`}>
+                                    <Link to={`/update/${users._id}`}>
                                         <button>Edit</button>
                                     </Link>
                                 </td>
                                 <td>
-                                    <button onClick={() => deleteUser(user._id)}>
+                                    <button onClick={() => deleteUser(users._id)}>
                                         Delete
                                     </button>
                                 </td>

@@ -32,6 +32,31 @@ class UserAPI {
     static updateUser(id, newUser) {
         return axios.put(`${BASE_URL}/user/update/${id}`,newUser, requestConfigJson);
     }
+
+    //------------- Get all books -----//
+    static getAllBooks() {
+        return axios.get(`${BASE_URL}/books`);
+    }
+
+    //-------------- Search user -----//
+    static searchUser(query) {
+        return axios.get(`${BASE_URL}/search`, { params: { query } }, requestConfig);
+    }
+
+    //------------- Search Books -----//
+    static searchBooks(query) {
+        return axios.get(`${BASE_URL}/search`, { params: {query} })
+    }
+
+    //------------ Purchase Books ----//
+    static purchaseBooks(id, newBook) {
+        return axios.post(`${BASE_URL}/books/purchase/${id}`, newBook)
+    }
+
+    //------------ Selected Books ----//
+    static selectedBooks(id) {
+        return axios.get(`${BASE_URL}/books/purchase/${id}`);
+    }
 }
 
 export default UserAPI;

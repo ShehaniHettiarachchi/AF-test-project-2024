@@ -72,6 +72,17 @@ export function UserProvider({ children }) {
             })
     };
 
+    //------------ Search user ------//
+    const searchUsers = async (query) => {
+        try {
+            const response = await UserAPI.searchUser(query);
+            setUsers(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
     return (
         <UserContext.Provider
             value={{
@@ -82,7 +93,8 @@ export function UserProvider({ children }) {
                 addUser,
                 getOne,
                 deleteUser,
-                updateUser
+                updateUser,
+                searchUsers
             }}
         >
             {children}
